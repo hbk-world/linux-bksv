@@ -1,0 +1,25 @@
+TI DAC8560 DEVICETREE BINDINGS
+
+Required properties:
+
+	- "compatible"		Must be set to "ti,dac8560"
+
+Property rules described in Documentation/devicetree/bindings/spi/spi-bus.txt
+apply. In particular, "reg" and "spi-max-frequency" properties must be given.
+
+
+Optional properties:
+- init-val : sets the dac value when DAC8560 is probed (0-65535).
+
+Example:
+
+	spi_master {
+		dac8560: dac8560@0 {
+			compatible = "ti,dac8560";
+			reg = <0>; /* CS0 */
+			spi-max-frequency = <1000000>;
+            init-val = <32767>;
+		};
+	};
+
+

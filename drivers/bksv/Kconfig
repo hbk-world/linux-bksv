@@ -1,0 +1,8 @@
+config BKSV
+	bool "Analog driver"
+	depends on I2C
+	depends on USB
+	depends on CHARGER_BQ25890
+	select REGMAP_I2C
+ 	help
+	  Bksv sai if.

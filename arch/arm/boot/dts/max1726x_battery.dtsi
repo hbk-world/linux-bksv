@@ -1,0 +1,102 @@
+/*
+
+max1726x_battery
+~~~~~~~~~~~~~~~~~~
+
+Required properties:
+ - compatible       : should contain one of the following:
+              - "maxim,MAX1726x" for MAX1726x
+
+Optional properties:
+ - maxim,rcomp0         : ModelGauge RCOMP parameter, used for
+                  temperature compensation (u8);
+ - maxim,model-data     : ModelGauge ModelData data,
+                  Custom Model calibration data (array_u8[64]).
+
+Example:
+
+*/
+
+/******************************************************************************
+ *** PLATFORM-SPECIFICS
+ *****************************************************************************/
+///***
+/*
+&maxim_miniq_gpio {
+    gpiocfg0 {
+        reg = <0>; // GPIO_K1
+        cfg = <0>; // 0=IN, 2=OUT_LO, 3=OUT_HI
+    };
+};
+
+&maxim_miniq_i2c {
+    MAX1726x: MAX1726x@36 {
+        status              = "okay";
+        reg                 = <0x36>; // MINIQUSB I2C ADDR=1, SIZE=0
+
+        interrupt-parent    = <&maxim_miniq_gpio>;
+        interrupts          = <0>; // MINIQUSB GPIO_K1(0)
+    };
+};
+*/
+//***/
+/*****************************************************************************/
+
+&MAX1726x {
+    compatible  = "maxim,MAX1726x";
+
+    rsense          = <10>;     /* miliOhm */
+    model-option    = <2>;      /* 1: EZ Model, 2: Custom INI without model table
+                                    3: Custom INI with custom model table */
+
+    talrt-min   = <(0)>;        /* DegreeC */
+    talrt-max   = <55>;         /* DegreeC */
+    valrt-min   = <3000>;       /* mV */
+    valrt-max   = <4200>;       /* mV */
+    salrt-min   = <3>;          /* Percent */
+    salrt-max   = <100>;        /* Percent */
+    ialrt-min   = <(-3100)>;    /* mA */
+    ialrt-max   = <3100>;       /* mA */
+
+
+    /*** INI parameters ***/
+    /* Option 1/2/3 */
+    /* designcap   = /bits/ 16 <0x28A0>;   /* 5200 mAh (0.5 * 0x28A0 = 5200mAh*/
+    designcap   = /bits/ 16 <0x3138>;   /* 6300 mAh (0.5 * 0x3138 = 6300mAh*/
+    ichgterm    = /bits/ 16 <0x0333>;   /* 128  mA  (0x333*0.15625mA=128mA) */
+    vempty      = /bits/ 16 <0xA507>;   /* 3300 mV  (0xA507*0.0781125mV ~ 3300mV) */
+    vcharge     = <4200>;               /* mV */
+
+    /* Option 2/3 */                    /* Orginal values */
+    learncfg    = /bits/ 16 <0x4486>;   /* <0xC482>; */
+    rcomp0      = /bits/ 16 <0x04e0>;   /* <0x0070>; */
+    tempco      = /bits/ 16 <0x263e>;   /* <0x223E>; */
+    qrtable00   = /bits/ 16 <0x1050>;
+    qrtable10   = /bits/ 16 <0x0200>;   /* <0x2013>; */
+    qrtable20   = /bits/ 16 <0x0c7d>;   /* <0x0B04>; */
+    qrtable30   = /bits/ 16 <0x0f89>;   /* <0x0885>; */
+
+    /* Option 2 */
+    dpacc       = /bits/ 16 <0x0190>;   /* <0x0C80>; */
+    modelcfg    = /bits/ 16 <0x8020>;
+
+    /* Option 3 */
+    relaxcfg    = /bits/ 16 <0x2039>;
+    config      = /bits/ 16 <0x2210>;
+    config2     = /bits/ 16 <0x0658>;
+    fullsocthr  = /bits/ 16 <0x5F05>;
+    tgain       = /bits/ 16 <0xEE56>;
+    toff        = /bits/ 16 <0x1DA4>;
+    curve       = /bits/ 16 <0x0025>;
+    model-data  = /bits/ 16 <
+        /* OCV Table */
+        0x9760 0xa510 0xb100 0xb600 0xb7a0 0xb900 0xba70 0xbc70
+        0xbde0 0xbfc0 0xc250 0xc510 0xc990 0xcea0 0xd040 0xd750
+        /* X Table */
+        0x0060 0x0120 0x0240 0x0d80 0x08b0 0x0590 0x1200 0x3210
+        0x0ee0 0x0a40 0x0950 0x08e0 0x0800 0x0780 0x06b0 0x06b0
+        /* RCompSeg Table */
+        0x0100 0x0100 0x0100 0x0100 0x0100 0x0100 0x0100 0x0100
+        0x0100 0x0100 0x0100 0x0100 0x0100 0x0100 0x0100 0x0100
+    >;
+};
