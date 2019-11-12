@@ -2133,7 +2133,7 @@ static int serial_imx_probe(struct platform_device *pdev)
 	sport->port.dev = &pdev->dev;
 	sport->port.mapbase = res->start;
 	sport->port.membase = base;
-printk("%s sport->port.mapbase=%x sport->port.membase=%x\n",__FILE__,sport->port.mapbase,sport->port.membase);
+printk("%s sport->port.mapbase=%x sport->port.membase=%p\n",__FILE__,sport->port.mapbase,sport->port.membase);
 	sport->port.type = PORT_IMX,
 	sport->port.iotype = UPIO_MEM;
 	sport->port.irq = rxirq;

@@ -888,7 +888,7 @@ long bksv_adc_fop_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
         {
             long ret = fsl_sai_runtime_resume((struct device *)sai->pdev, cmd);
             if (ret)
-                dev_err(&sai->pdev->dev, "fsl_sai_runtime_resume failed, cmd=0x%x ret=0x%x\n",cmd,ret);
+                dev_err(&sai->pdev->dev, "fsl_sai_runtime_resume failed, cmd=0x%x ret=0x%lx\n",cmd,ret);
             return ret;
         }
         break;
@@ -904,7 +904,7 @@ long bksv_adc_fop_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
         {
             long ret = fsl_sai_runtime_suspend((struct device *)sai->pdev);
             if (ret)
-                dev_err(&sai->pdev->dev, "fsl_sai_runtime_suspend failed, cmd=0x%x ret=0x%x\n",cmd,ret);
+                dev_err(&sai->pdev->dev, "fsl_sai_runtime_suspend failed, cmd=0x%x ret=0x%lx\n",cmd,ret);
             return ret;
         }
         break;

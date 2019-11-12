@@ -791,7 +791,9 @@ int mxsfb_mpu_refresh_panel(struct fb_info *info)
     unsigned int tmp;
     struct timespec ts;
     static time_t last_check_time=0;
+#if 0
     static time_t last_fail=0;
+#endif
     tmp = *((unsigned int *)host->fb_info->screen_base);
     getnstimeofday(&ts);
 #if 1

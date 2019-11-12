@@ -675,7 +675,7 @@ static int tca6507_probe(struct i2c_client *client,
 	}
 
     tca->device = device_create(bk_sys_class, &client->dev, MKDEV(MAJOR(ring_devt), 0),
-                               (void *)tca, DEVICE_NAME_FORMAT, MINOR(MKDEV(MAJOR(ring_devt), 0)));
+                               (void *)tca, DEVICE_NAME_FORMAT);
     //create char-device
     cdev_init(&tca->cdev, &lightring_fops);
     tca->cdev.owner = THIS_MODULE;

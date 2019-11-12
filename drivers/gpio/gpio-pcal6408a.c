@@ -689,7 +689,7 @@ static int device_pcal6408_init(struct pcal6408_chip *chip, u32 invert)
 
 
 	ret = pca953x_read_regs(chip, chip->regs->direction, chip->reg_direction);
-out:
+
 	return ret;
 }
 /*

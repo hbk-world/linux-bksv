@@ -75,9 +75,8 @@ static ssize_t dac8560_show_val(struct device *dev,
     struct device_attribute *attr,
     char *buf)
 {
-    struct spi_device *spi = to_spi_device(dev);
     struct dacdata *dac=dev->driver_data;
-    return sprintf(buf, "%d\n", dac->val);
+    return sprintf(buf, "%ld\n", dac->val);
 }
 
 static DEVICE_ATTR(powerdown, S_IWUSR, NULL, dac8560_store_pwr);

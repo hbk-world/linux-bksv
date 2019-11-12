@@ -508,7 +508,7 @@ static int ESD_thread(void *data)
 		regval = i2c_smbus_read_byte_data(drvdata->client,lm3530_reg[0]);
         if (regval != drvdata->gen_config)
         {
-            dev_err(&drvdata->client->dev,"reg test failed, regval\n",regval);
+            dev_err(&drvdata->client->dev,"reg test failed, regval %#x\n",regval);
             err = lm3530_init_registers(drvdata);
             if (err < 0)
             {
@@ -521,6 +521,8 @@ static int ESD_thread(void *data)
             dev_err(&drvdata->client->dev,"reg test ok\n");
 */       
     }
+
+	return 0;
 }
 
 static int lm3530_probe(struct i2c_client *client,
